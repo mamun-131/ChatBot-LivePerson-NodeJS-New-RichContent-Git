@@ -1,374 +1,336 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="user-scalable=0, width=device-width, initial-scale=1.0,  minimum-scale=1.0, maximum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=100">
-    <title>Liveperson Chat Demo</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link id="jquery_ui_theme_loader" type="text/css" href="js/jquery/themes/black-tie/jquery-ui.css"
-        rel="stylesheet" />
-    <link type="text/css" href="js/jquery/window/css/jquery.window.css" rel="stylesheet" />
-    <link type="text/css" href="style.css" rel="stylesheet" />
-    <link 
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
-    rel="stylesheet"  type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/app.css" />
-
+  <head>
+    <link rel="stylesheet" href="./scripts/json-pollock/json-pollock.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <script
+      type="text/javascript"
+      src="./scripts/liveperson/le-mtagconfig.js"
+    ></script>
+    <script src="./scripts/json-pollock/json-pollock.js"></script>
 
     <script>
-        function getURLParams(search) {
-            var queryParams = {}, queryArray, singleQuery;
-            queryArray = search.substr(1).split("&");
-            for (var i = 0; i < queryArray.length; i++) {
-                if (queryArray[i].indexOf("=") > 0) {
-                    singleQuery = queryArray[i].split("=");
-                    if (singleQuery.length === 2) {
-                        queryParams[decodeURIComponent(singleQuery[0])] = decodeURIComponent(singleQuery[1]);
-                    }
-                }
-            }
-            return queryParams;
-        }
+      window.onload = function () {
+        let card = {
+          type: "vertical",
+          elements: [
+            {
+              type: "image",
+              url:
+                "https://cdn.bgr.com/2016/08/iphone-8-concept.jpg?quality=98&strip=all",
+              tooltip: "image tooltip",
+              click: {
+                actions: [
+                  {
+                    type: "navigate",
+                    name: "Navigate to store via image",
+                    lo: 23423423,
+                    la: 2423423423,
+                  },
+                ],
+              },
+            },
+            {
+              type: "carousel",
+              padding: 0,
+              elements: [
+                {
+                  type: "vertical",
+                  elements: [
+                    {
+                      type: "text",
+                      text: "SIM only plan",
+                      tooltip: "SIM only plan",
+                      rtl: false,
+                      style: {
+                        bold: false,
+                        italic: false,
+                        color: "#000000",
+                        size: "large",
+                        "background-color": "#008000",
+                      },
+                    },
+                    {
+                      type: "text",
+                      text: "Twelve month plan BYO mobile",
+                      tooltip: "Twelve month plan BYO mobile",
+                      rtl: false,
+                      style: {
+                        bold: true,
+                        italic: false,
+                        color: "#000000",
+                      },
+                    },
+                    {
+                      type: "button",
+                      tooltip: "Choose a plan",
+                      title: "Choose a plan",
+                      style: {
+                        bold: true,
+                        italic: true,
+                        "background-color": "#f0f0f0",
+                      },
+                      click: {
+                        metadata: [
+                          {
+                            type: "ExternalId",
+                            id: "ANOTHER_ONE_1",
+                          },
+                        ],
+                        actions: [
+                          {
+                            type: "publishText",
+                            text: "SIM only plan",
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+                {
+                  type: "vertical",
+                  elements: [
+                    {
+                      type: "text",
+                      text: "Swap plan",
+                      tooltip: "Swap plan",
+                      rtl: false,
+                      style: {
+                        bold: false,
+                        italic: false,
+                        color: "#000000",
+                        size: "large",
+                      },
+                    },
+                    {
+                      type: "text",
+                      text: "Two year plan leasing a mobile",
+                      tooltip: "Two year plan leasing a mobile",
+                      rtl: false,
+                      style: {
+                        bold: true,
+                        italic: false,
+                        color: "#000000",
+                      },
+                    },
+                    {
+                      type: "button",
+                      tooltip: "Choose a plan",
+                      title: "Choose a plan",
+                      click: {
+                        metadata: [
+                          {
+                            type: "ExternalId",
+                            id: "ANOTHER_ONE_2",
+                          },
+                        ],
+                        actions: [
+                          {
+                            type: "publishText",
+                            text: "Two year plan leasing a mobile",
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+                {
+                  type: "vertical",
+                  elements: [
+                    {
+                      type: "text",
+                      text: "Mobiles on a plan",
+                      tooltip: "Mobiles on a plan",
+                      rtl: false,
+                      style: {
+                        bold: false,
+                        italic: false,
+                        color: "#000000",
+                        size: "large",
+                      },
+                    },
+                    {
+                      type: "text",
+                      text: "Two year plan with a mobile",
+                      tooltip: "Two year plan with a mobile",
+                      rtl: false,
+                      style: {
+                        bold: true,
+                        italic: false,
+                        color: "#000000",
+                      },
+                    },
+                    {
+                      type: "button",
+                      tooltip: "Choose a plan",
+                      title: "Choose a plan",
+                      click: {
+                        metadata: [
+                          {
+                            type: "ExternalId",
+                            id: "ANOTHER_ONE_3",
+                          },
+                        ],
+                        actions: [
+                          {
+                            type: "publishText",
+                            text: "Mobiles on a plan",
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: "text",
+              text: "product name (Title)",
+              tooltip: "text tooltip",
+              style: {
+                bold: true,
+                size: "large",
+              },
+            },
+            {
+              type: "text",
+              text: "product name (Title)",
+              tooltip: "text tooltip",
+            },
+            {
+              type: "button",
+              tooltip: "button tooltip",
+              title: "Add to cart",
+              click: {
+                actions: [
+                  {
+                    type: "link",
+                    name: "Add to cart",
+                    uri: "https://example.com",
+                  },
+                ],
+              },
+            },
+            {
+              type: "horizontal",
+              elements: [
+                {
+                  type: "button",
+                  title: "Buy",
+                  tooltip: "Buy this broduct",
+                  click: {
+                    actions: [
+                      {
+                        type: "link",
+                        name: "Buy",
+                        uri: "https://example.com",
+                      },
+                    ],
+                  },
+                },
+                {
+                  type: "button",
+                  title: "Find similar",
+                  tooltip: "store is the thing",
+                  click: {
+                    actions: [
+                      {
+                        type: "link",
+                        name: "Buy",
+                        uri: "https://search.com",
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+            {
+              type: "button",
+              tooltip: "button tooltip",
+              title: "Publish text",
+              click: {
+                actions: [
+                  {
+                    type: "publishText",
+                    text: "my text",
+                  },
+                ],
+              },
+            },
+            {
+              type: "map",
+              la: 64.128597,
+              lo: -21.89611,
+              tooltip: "map tooltip",
+            },
+            {
+              type: "button",
+              tooltip: "button tooltip",
+              title: "Navigate",
+              click: {
+                actions: [
+                  {
+                    type: "publishText",
+                    text: "my text",
+                  },
+                  {
+                    type: "navigate",
+                    name: "Navigate to store via image",
+                    lo: 23423423,
+                    la: 2423423423,
+                  },
+                ],
+              },
+            },
+          ],
+        };
 
-        var site = getURLParams(window.location.search).site;
-        var lptag = getURLParams(window.location.search).lptag || getURLParams(window.location.search).lpTag;
-        var tagd = getURLParams(window.location.search).tagd;
-        var divid = getURLParams(window.location.search).divid;
+        JsonPollock.registerAction("navigate", (data) => {
+          alert(JSON.stringify(data));
+          alert("navigate");
+        });
 
-        if (tagd) {
-            window.lpTag = window.lpTag || {};
-            lpTag.ovr = lpTag.ovr || {};
-            lpTag.ovr.domain = tagd;
-        }
+        JsonPollock.registerAction("link", (data) => {
+          alert(JSON.stringify(data));
+          alert("link");
+        });
 
+        JsonPollock.registerAction("publishText", (data) => {
+          //   alert(JSON.stringify(data));
+          // alert("publishText");
+        });
+
+        const el = JsonPollock.render(JSON.stringify(card));
+        document.getElementById("chatbox11").appendChild(el);
+      };
     </script>
-    <!-- BEGIN LivePerson Monitor. -->
-    <script type="text/javascript">
-        if (lptag === "true") {
-            window.lpTag = window.lpTag || {}, "undefined" == typeof window.lpTag._tagCount ? (window.lpTag = {
-                site: site || "",
-                section: lpTag.section || "",
-                tagletSection: lpTag.tagletSection || null,
-                autoStart: lpTag.autoStart !== !1,
-                ovr: lpTag.ovr || {},
-                _v: "1.7.0",
-                _tagCount: 1,
-                protocol: "https:",
-                events: {
-                    bind: function (t, e, i) {
-                        lpTag.defer(function () {
-                            lpTag.events.bind(t, e, i)
-                        }, 0)
-                    }, trigger: function (t, e, i) {
-                        lpTag.defer(function () {
-                            lpTag.events.trigger(t, e, i)
-                        }, 1)
-                    }
-                },
-                defer: function (t, e) {
-                    0 == e ? (this._defB = this._defB || [], this._defB.push(t)) : 1 == e ? (this._defT = this._defT || [], this._defT.push(t)) : (this._defL = this._defL || [], this._defL.push(t))
-                },
-                load: function (t, e, i) {
-                    var n = this;
-                    setTimeout(function () {
-                        n._load(t, e, i)
-                    }, 0)
-                },
-                _load: function (t, e, i) {
-                    var n = t;
-                    t || (n = this.protocol + "//" + (this.ovr && this.ovr.domain ? this.ovr.domain : "lptag.liveperson.net") + "/tag/tag.js?site=" + this.site);
-                    var a = document.createElement("script");
-                    a.setAttribute("charset", e ? e : "UTF-8"), i && a.setAttribute("id", i), a.setAttribute("src", n), document.getElementsByTagName("head").item(0).appendChild(a)
-                },
-                init: function () {
-                    this._timing = this._timing || {}, this._timing.start = (new Date).getTime();
-                    var t = this;
-                    window.attachEvent ? window.attachEvent("onload", function () {
-                        t._domReady("domReady")
-                    }) : (window.addEventListener("DOMContentLoaded", function () {
-                        t._domReady("contReady")
-                    }, !1), window.addEventListener("load", function () {
-                        t._domReady("domReady")
-                    }, !1)), "undefined" == typeof window._lptStop && this.load()
-                },
-                start: function () {
-                    this.autoStart = !0
-                },
-                _domReady: function (t) {
-                    this.isDom || (this.isDom = !0, this.events.trigger("LPT", "DOM_READY", { t: t })), this._timing[t] = (new Date).getTime()
-                },
-                vars: lpTag.vars || [],
-                dbs: lpTag.dbs || [],
-                ctn: lpTag.ctn || [],
-                sdes: lpTag.sdes || [],
-                ev: lpTag.ev || []
-            }, lpTag.init()) : window.lpTag._tagCount += 1;
-        }
+  </head>
+  <body>
+    <h1>Mamun</h1>
+    <form onsubmit="return false">
+      <div class="input-group input-group-lg">
+        <input
+          id="textline"
+          type="text"
+          class="form-control"
+          placeholder="Enter message here..."
+        />
+        <span class="input-group-btn">
+          <button id="sendButton" class="btn btn-default btn-primary">
+            Send
+          </button>
+        </span>
+      </div>
+      <!-- /input-group -->
+    </form>
 
+    <div id="chatbox"></div>
+  </body>
 
-
-
-
-    </script>
-    <!-- END LivePerson Monitor. -->
-</head>
-
-
-
-<body>
-    <!-- <button id="engagement" >Start Chat</button>
-    <button id="engagement" >Start Chat</button>-->
-
-    <header role="banner" class="navbar navbar-fixed-top navbar-inverse ">
-
-        <ul id="nanmenu1" class="nav pb-5 pt-5 transparent" style="height: 40px; padding-top: -10px;">
-            <li style="float: left;height: 28px;"><a href="#" style="color: rgb(223, 213, 213);">
-                    <h6>PERSONAL</h6>
-                </a></li>
-            <li style="float: left;height: 28px;"><a href="#" style="color: white; rgb(223, 213, 213);">
-                    <h6>SMALL BUSINESS</h6>
-                </a></li>
-            <li style="float: left;height: 28px;"><a href="#" style="color:  rgb(223, 213, 213);">
-                    <h6>ENTERPRISE</h6>
-                </a></li>
-            <li style="float: right;height: 28px;"><a href="#" style="color:  rgb(223, 213, 213);">
-                    <h6>BELL MTS EMAIL </h6>
-                </a></li>
-            <li style="float: right;height: 28px;"><a href="#" style="color:  rgb(223, 213, 213);">
-                    <h6>BELL MTS STORE</h6>
-                </a></li>
-        </ul>
-
-        <nav role="navigation" class="navbar-collapse" style="background-color: #00559a;width: 100%;">
-            <div style="padding-left: 100px;">
-                <img style="margin-top: 15px" src="./assets/image/bell_logo.PNG" class="logo" />
-                <ul class="nav navbar-nav" style="color: white;">
-                    <li><a href="#" style="color: white;float: left;">
-                            <h3>Shop</h3>
-                        </a></li>
-                    <li><a href="#" style="color: white;float: left;">
-                            <h3>Support</h3>
-                        </a></li>
-                    <li><a href="#" style="color: white;float: left;">
-                            <h3>My Accounts</h3>
-                        </a></li>
-                </ul>
-            </div>
-        </nav>
-
-    </header>
-
-
-
-
-    <div style="padding-top:80px; padding-left: 250px;">
-        <p>
-            <a  href="#"><span><i class="fa fa-home" style="size: 30px;"></span></i>&nbsp; Support</a>
-            
-        </p>
-    </div>
-
-
-    <div style="padding-left: 300px;" class="hidden">
-        
-            <h4> Support </h4>
-            
-    </div>
-    
-    <div class="container" style="width: 90%; max-width: 1000px; height: 100%;">
-
-        <div id="engagementPlaceholder"></div>
-
-        <div class="buttonwrapper" style="text-align: center;">
-            <!-- <img src="./assets/image/headphone.png" style="width: 50px; height: 50px;" alt="">-->
-             <!-- <div style="margin-top: 25px;">
-                 <span style="font-size: x-large;">
-                    Need help with your Bell services? Start here for support.
-                </span>
-             </div>
-             <form onsubmit="return false">
-                 <div style="margin-top: 25px;">
-                     <button id="startChat" class="btn btn-lg btn-primary">Start Repair</button>
-                 </div>
-             </form> -->
-
-             <div id="startHere" class="jumbotron">
-                <h2>Need help with your Bell services?</h2>
-                <p>Start here for support.</p>
-                <p style="margin-top:25px;"><button id="startChat" class="btn btn-lg btn-primary">Start Repair</button></p>
-              </div>
-         </div>
-
-         
-
-        <div id="chatWindow" style="width: 100%; height: 100%;">
-            <div class="wrapper" id="hideSegment">
-        
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div id="topChatBar" style="display: block">
-                            <div id="agentIsTyping"></div>
-                            <form onsubmit="return false">
-                                <div>
-                                    <button id="closeChat" class="btn btn-sm btn-default" style="float: right;">Close Chat</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div id="chatLines" class="scrollbar-primary"></div>
-                    </div>
-                </div>
-
-                <div class="row" style="margin-top: 5px">
-        
-                    <div class="col-lg-12" >
-                        <form onsubmit="return false">
-                            <div class="input-group input-group-lg">
-                                
-                                <input id="textline" type="text" class="form-control" placeholder="Enter message here...">
-                                <span class="input-group-btn">
-                                    <button id="sendButton" class="btn btn-default btn-primary">Send</button>
-                                </span>
-
-                            </div><!-- /input-group -->
-                        </form>
-                    </div><!-- /.col-lg-6 -->
-                </div>
-            
-                <!-- <div class="row" style="margin-top: 5px">
-                    <div class="col-lg-12" >
-                        <form class="hidden" onsubmit="return false">
-                            <div class="form-group">
-                                <input type="text" id="visitorName" class="form-control input-sm"
-                                    placeholder="Enter name..." />
-                                <button id="setvisitorName" class="btn btn-sm">Set Name</button>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="emailAddress" class="form-control input-sm"
-                                    placeholder="Enter email address..." />
-                                <button id="sendTranscript" class="btn btn-sm">Send Transcript</button>
-                            </div>
-                        </form>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-    </div>
-
-
-
-    <div id="logs" class="hidden"></div>
-
-
-
-
-
-
-
-    <div id="wrapper">
-        
-        <div class="container" style=" width: 90%; color: white; margin-top: 5px;">
-            <div class="row">
-                <div class="col-sm-4">
-                    <a class="cta-link" href="#" style="color: white;"><img style="width: 50px;height: 50px;"
-                            class="cta-icon" src="./assets/image/callbutton.PNG" />Contact us</a>
-                    <a class="cta-link" href="#" style="color: white;"><img style="width: 50px;height: 50px;"
-                            class="cta-icon" src="./assets/image/findstore.PNG" />Find a store</a>
-
-                </div>
-                <div class="col-sm-4">
-                    <h4>Manage your accounts</h4>
-                    <p>With our new self-serve tools, it's easier than ever!</p>
-                </div>
-                <div class="col-sm-4">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <p>
-                                <button id="loginbutton" class="btn btn-primary">Log in / Register</button>
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-        <div style=" background-color: white; width: 90%;height: 1px; margin: auto; margin-bottom:5px;"></div>
-
-        <!-- <footer >
-	
-    <nav
-    role="navigation"
-    class="navbar-collapse"
-    style="background-color: #00559a;width: 100%; margin-bottom: -200px;"
-  >
-    <div class="container">
-        <ul class="nav navbar-nav navbar-right">
-            <li>     
-                <p>
-                    <button id="loginbutton" class="btn btn-primary" >Log in / Register</button>
-                </p>
-            </li>
-        </ul>
-
-    </div>
-
-  </nav>
-</footer>
-End of Footer -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-<script>
-    if (divid) {
-        var chatdiv = document.createElement('div');
-        chatdiv.id = divid;
-        document.getElementById('engagementPlaceholder').appendChild(chatdiv);
-    }
-
-
-
-
-</script>
-
-
-
-<script type="text/javascript" src="js/jquery/jquery.js"></script>
-<script type="text/javascript" src="js/jquery/jquery-ui.js"></script>
-<script type="text/javascript" src="js/jquery/window/jquery.window.js"></script>
-<script type="text/javascript" src="https://lpcdn.lpsnmedia.net/api/chat/public/lpChat.min.js"></script>
-<script
-type="text/javascript"
-src="scripts/liveperson/message-window.min.js"
-></script>
-
-<script src="./script.js"></script>
-
-<script src="./scripts/app.js"></script>
-
-<script type="text/javascript" src="scripts/app/app_script.js"></script>
+  <script
+    type="text/javascript"
+    src="scripts/liveperson/message-window.min.js"
+  ></script>
+  <script type="text/javascript" src="scripts/app/app_script.js"></script>
 </html>

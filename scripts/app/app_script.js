@@ -5,6 +5,25 @@ var windowKit = new windowKit({
 
 //connect to LE
 windowKit.connect();
+windowKit.onConnect(function (res) {
+  //alert(res);
+  $(document).ready(function () {
+    $("#sendButton").click(function () {
+      windowKit.sendMessage($("#textline").val());
+    });
+  });
+
+   console.log(res);
+  //console.log(JSON.stringify(res.initStack));
+  //console.log(res.initStack);
+});
+windowKit.onReady(function (res) {
+  // console.log(res);
+});
+
+windowKit.onMessageEvent(function (res) {
+  //console.log(res);
+});
 
 //windowKit.sendMessage("Hello World!");
 //when the agent sends a text message
@@ -17,8 +36,8 @@ windowKit.onAgentTextEvent(function (text) {
   var latestText = botTexts[botTexts.length - 1];
   //scroll the window to the last text. This is used to create a scroll effect in the conversation.
   $("body, html").animate({ scrollTop: $(latestText).offset().top }, 1000);
-  alert(text);
-  console.log("Agent: " + text);
+  // alert("mmm");
+  // console.log("Agent: " + text);
 });
 
 //windowKit.setInteractions(1).sendMessage("hi");
@@ -43,6 +62,7 @@ windowKit.onAgentRichContentEvent(function (content) {
     //append the text to the DOM so it shows up as the user's side of the conversation
     $("#chatbox").append('<div class="consumerText">' + scText + "</div>");
     //same scroll effect as above
+    console.log("Agent: " + scText);
     var consumerTexts = document.getElementsByClassName("consumerText");
     var latestConsumerText = consumerTexts[consumerTexts.length - 1];
     $("body, html").animate(
@@ -50,4 +70,15 @@ windowKit.onAgentRichContentEvent(function (content) {
       1000
     );
   });
+});
+
+JsonPollock.registerAction("publishText", (data) => {
+  alert(JSON.stringify(data));
+  alert(data.actionData.text);
+  $("#textline").val(data.actionData.text);
+  windowKit.sendMessage(data.actionData.text);
+});
+
+windowKit.onMessageSent(function (res) {
+  console.log("mmmm" + res);
 });

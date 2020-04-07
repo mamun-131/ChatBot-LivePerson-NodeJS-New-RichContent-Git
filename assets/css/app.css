@@ -54,6 +54,15 @@ pre {
   border-radius: 5px;
   /*float: left;*/
 }
+.response1 {
+  border: 1px solid #e2dfdf;
+  background: #ffffff;
+  padding: 2%;
+  width: 100%;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  margin-bottom: 0px;
+}
 .request {
   border: 1px solid #e2dfdf;
   background: #ffffff;

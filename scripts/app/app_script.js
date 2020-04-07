@@ -2,30 +2,27 @@ var windowKit = new windowKit({
   account: 34681503,
   //skillId: 12341234 - optional skill ID
 });
+
 $("#hideSegment").hide();
-
-const commandName = "my-command";
-
-function resetShortcut() {
-  browser.commands.reset(commandName);
-}
-
-document.querySelector("#closeChat").addEventListener("click", resetShortcut);
 
 //connect to LE
 windowKit.connect();
 windowKit.onConnect(function (res) {
   //alert(res);
+
   $(document).ready(function () {
     $("#startChat").click(function () {
       // window.location.reload(true);
       setTimeout(function () {
         // alert("Hello");
+        windowKit.sendMessage("reset");
+        windowKit.sendMessage("hi");
+        $("#chatLines").empty();
         $("#hideSegment").show();
         $("#startHere").hide();
         scrollToBottom();
         //  windowKit.sendMessage("reset");
-        // windowKit.sendMessage("hi");
+
         // $("#chatLines").empty();
       }, 1000);
     });
@@ -34,7 +31,9 @@ windowKit.onConnect(function (res) {
     $("#closeChat").click(function () {
       $("#chatLines").empty();
       $("#hideSegment").hide();
-
+      windowKit.sendMessage("reset");
+      //windowKit.sendMessageClose();
+      delete windowKit;
       window.location.reload(true);
 
       //  $("#startHere").show();
@@ -67,7 +66,7 @@ windowKit.onReady(function (res) {
 });
 
 windowKit.onMessageEvent(function (res) {
-  //console.log(res);
+  // console.log(res);
 });
 
 //when the agent sends a text message
@@ -96,7 +95,7 @@ windowKit.onAgentTextEvent(function (text) {
 windowKit.onAgentRichContentEvent(function (content) {
   //console.log(content.elements[0].text);
   //render the structured content using JsonPollock
-  // console.log(content);
+  console.log(content);
   var line1 = createLine({
     by: "Bot",
     text: content.elements[0].text,
@@ -151,7 +150,7 @@ JsonPollock.registerAction("publishText", (data) => {
 });
 
 windowKit.onMessageSent(function (res) {
-  console.log(res);
+  //console.log(res);
 });
 
 function scrollToBottom() {

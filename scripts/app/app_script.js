@@ -94,9 +94,9 @@ windowKit.onAgentTextEvent(function (text) {
 
 //when the agent sends a rich content message
 windowKit.onAgentRichContentEvent(function (content) {
-  console.log(content.elements[0].text);
+  //console.log(content.elements[0].text);
   //render the structured content using JsonPollock
-  console.log(content);
+  // console.log(content);
   var line1 = createLine({
     by: "Bot",
     text: content.elements[0].text,
@@ -118,7 +118,7 @@ windowKit.onAgentRichContentEvent(function (content) {
   //append the results of the render to the DOM
   $("#chatLines").append(line2);
   scrollToBottom();
-  console.log(line2);
+  //console.log(line2);
   //when a user clicks on a structured content button
   $(".lp-json-pollock-element-button").on("click", function () {
     //grab the text of the button
@@ -134,7 +134,7 @@ windowKit.onAgentRichContentEvent(function (content) {
     });
     $("#chatLines").append(line_button);
     //same scroll effect as above
-    console.log(scText);
+    // console.log(scText);
     scrollToBottom();
   });
 });
@@ -193,3 +193,17 @@ function createLine(line) {
 
   return div;
 }
+
+windowKit.onAgentChatState(function (res) {
+  // $("#agentIsTyping").html("ooooo");
+  console.log(res);
+  // alert("Agent is typing");
+  if (res === "COMPOSING") {
+    //  chatWindow.setFooterContent("Agent is typing...");
+    $("#agentIsTyping").html("Agent is typing...");
+    // $("#agentIsTyping").innerHTML = "Agent is typing...";
+  } else {
+    // chatWindow.setFooterContent("");
+    $("#agentIsTyping").html("");
+  }
+});

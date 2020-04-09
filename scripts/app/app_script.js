@@ -12,7 +12,6 @@ windowKit.onConnect(function (res) {
 
   $(document).ready(function () {
     $("#startChat").click(function () {
-      // window.location.reload(true);
       setTimeout(function () {
         // alert("Hello");
         windowKit.sendMessage("reset");
@@ -21,9 +20,6 @@ windowKit.onConnect(function (res) {
         $("#hideSegment").show();
         $("#startHere").hide();
         scrollToBottom();
-        //  windowKit.sendMessage("reset");
-
-        // $("#chatLines").empty();
       }, 1000);
     });
   });
@@ -31,8 +27,12 @@ windowKit.onConnect(function (res) {
     $("#closeChat").click(function () {
       $("#chatLines").empty();
       $("#hideSegment").hide();
+
+      //windowKit.sendChatState("ended");
       windowKit.sendMessage("reset");
-      //windowKit.sendMessageClose();
+
+      // windowKit.sendMessageClose();
+      //console.log("Mamun");
       delete windowKit;
       window.location.reload(true);
 
@@ -57,7 +57,7 @@ windowKit.onConnect(function (res) {
     });
   });
 
-  console.log(res);
+  // console.log(res);
   //console.log(JSON.stringify(res.initStack));
   //console.log(res.initStack);
 });
@@ -88,13 +88,14 @@ windowKit.onAgentTextEvent(function (text) {
   var latestText = botTexts[botTexts.length - 1];
   //scroll the window to the last text. This is used to create a scroll effect in the conversation.
   scrollToBottom();
-  // console.log("Agent: " + text);
+  console.log("Agent: " + text);
 });
 
 //when the agent sends a rich content message
 windowKit.onAgentRichContentEvent(function (content) {
   //console.log(content.elements[0].text);
   //render the structured content using JsonPollock
+  console.log("Agent:");
   console.log(content);
   var line1 = createLine({
     by: "Bot",

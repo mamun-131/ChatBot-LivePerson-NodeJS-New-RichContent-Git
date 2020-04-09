@@ -489,16 +489,12 @@ function windowKit(options) {
         .publishEvent({
           dialogId: convId,
           event: {
-            type: "message",
-            text: "",
-            channelData: {
-              action: {
-                name: "CLOSE_CONVERSATION",
-              },
-            },
+            type: "state",
+            state: "ended",
           },
         })
         .then(function (resp) {
+          console.log(resp);
           _this.executeCallback("onMessageSent", message, resp);
         });
     };

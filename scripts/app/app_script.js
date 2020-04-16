@@ -1,5 +1,6 @@
 var windowKit = new windowKit({
   account: 34681503,
+  skillId: 1933536430,
   //skillId: 12341234 - optional skill ID
 });
 
@@ -8,12 +9,13 @@ $("#hideSegment").hide();
 //connect to LE
 windowKit.connect();
 windowKit.onConnect(function (res) {
+  console.log(res);
   //alert(res);
 
   $(document).ready(function () {
     $("#startChat").click(function () {
       setTimeout(function () {
-        // alert("Hello");
+        //alert("Hello");
         windowKit.sendMessage("reset");
         windowKit.sendMessage("hi");
         $("#chatLines").empty();
@@ -25,6 +27,8 @@ windowKit.onConnect(function (res) {
   });
   $(document).ready(function () {
     $("#closeChat").click(function () {
+      localStorage.clear();
+
       $("#chatLines").empty();
       $("#hideSegment").hide();
 
@@ -151,7 +155,7 @@ JsonPollock.registerAction("publishText", (data) => {
 });
 
 windowKit.onMessageSent(function (res) {
-  //console.log(res);
+  console.log(res);
 });
 
 function scrollToBottom() {

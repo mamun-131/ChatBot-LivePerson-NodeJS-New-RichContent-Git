@@ -30,7 +30,9 @@
 
     <!--JWT Injection Starts-->
     <script lang="javascript">
+      //Clear the local storage memory
       localStorage.clear();
+      //JWT Injection
       var jwtCallback =   function () {
              var jwt = { "jwt": "empty JSON jwt" };
              console.log(jwt);

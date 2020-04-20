@@ -1,6 +1,6 @@
 var windowKit = new windowKit({
   account: 34681503,
-  skillId: 1933536430,
+  skillId: 1933526730,
   //skillId: 12341234 - optional skill ID
 });
 
@@ -9,7 +9,6 @@ $("#hideSegment").hide();
 //connect to LE
 windowKit.connect();
 windowKit.onConnect(function (res) {
-  console.log(res);
   //alert(res);
 
   $(document).ready(function () {
@@ -17,10 +16,18 @@ windowKit.onConnect(function (res) {
       setTimeout(function () {
         //alert("Hello");
         windowKit.sendMessage("reset");
+        /////////////////////////////////////////////////////
+        // windowKit.sendMessage("code:{consumerid: 'nnnnnnnnn'}");
+
+        ////////////////////////////////////////////////////
+
         windowKit.sendMessage("hi");
         $("#chatLines").empty();
         $("#hideSegment").show();
         $("#startHere").hide();
+        console.log(res);
+        console.log(res.participantId);
+
         scrollToBottom();
       }, 1000);
     });
@@ -70,14 +77,16 @@ windowKit.onReady(function (res) {
 });
 
 windowKit.onMessageEvent(function (res) {
-  // console.log(res);
+  console.log(res);
 });
 
 //when the agent sends a text message
 windowKit.onAgentTextEvent(function (text) {
-  //  if (text === "Session deleted") {
-  //  return;
-  // }
+  if (text === "jwt") {
+    console.log(windowKit.initStack[0].jwt);
+    windowKit.sendMessage(windowKit.initStack[0].jwt);
+    return;
+  }
   //append the message's contents to the DOM
   var line = createLine({
     by: "Bot",
@@ -92,15 +101,14 @@ windowKit.onAgentTextEvent(function (text) {
   var latestText = botTexts[botTexts.length - 1];
   //scroll the window to the last text. This is used to create a scroll effect in the conversation.
   scrollToBottom();
-  console.log("Agent: " + text);
 });
 
 //when the agent sends a rich content message
 windowKit.onAgentRichContentEvent(function (content) {
   //console.log(content.elements[0].text);
   //render the structured content using JsonPollock
-  console.log("Agent:");
-  console.log(content);
+  // console.log("Agent:");
+  //console.log(content);
   var line1 = createLine({
     by: "Bot",
     text: content.elements[0].text,

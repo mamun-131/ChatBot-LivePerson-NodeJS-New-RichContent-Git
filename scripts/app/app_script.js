@@ -9,50 +9,34 @@ $("#hideSegment").hide();
 //connect to LE
 windowKit.connect();
 windowKit.onConnect(function (res) {
-  //alert(res);
-
+  //Start Chat Button Binding
   $(document).ready(function () {
     $("#startChat").click(function () {
       setTimeout(function () {
-        //alert("Hello");
-        windowKit.sendMessage("reset");
-        /////////////////////////////////////////////////////
-        // windowKit.sendMessage("code:{consumerid: 'nnnnnnnnn'}");
-
-        ////////////////////////////////////////////////////
-
-        windowKit.sendMessage("hi");
+        windowKit.sendMessage("reset"); //restart chat
+        windowKit.sendMessage("hi"); //initiate chat
         $("#chatLines").empty();
         $("#hideSegment").show();
         $("#startHere").hide();
         console.log(res);
         console.log(res.participantId);
-
         scrollToBottom();
       }, 1000);
     });
   });
+  //Close Chat Button Binding
   $(document).ready(function () {
     $("#closeChat").click(function () {
       localStorage.clear();
-
       $("#chatLines").empty();
       $("#hideSegment").hide();
-
-      //windowKit.sendChatState("ended");
-      windowKit.sendMessage("reset");
-
-      // windowKit.sendMessageClose();
-      //console.log("Mamun");
-      delete windowKit;
+      //   delete windowKit;
       window.location.reload(true);
-
-      //  $("#startHere").show();
     });
   });
-
+  //Hide Chat Segments
   $("#hideSegment").hide();
-
+  //Send Chat Message Button Binding
   $(document).ready(function () {
     $("#sendButton").click(function () {
       var line = createLine({
@@ -69,9 +53,8 @@ windowKit.onConnect(function (res) {
   });
 
   // console.log(res);
-  //console.log(JSON.stringify(res.initStack));
-  //console.log(res.initStack);
 });
+
 windowKit.onReady(function (res) {
   // console.log(res);
 });
@@ -83,8 +66,9 @@ windowKit.onMessageEvent(function (res) {
 //when the agent sends a text message
 windowKit.onAgentTextEvent(function (text) {
   if (text === "jwt") {
-    console.log(windowKit.initStack[0].jwt);
-    windowKit.sendMessage(windowKit.initStack[0].jwt);
+    // console.log(windowKit.initStack[0].jwt);
+    console.log(jwtCallback().jwt);
+    windowKit.sendMessage(jwtCallback().jwt);
     return;
   }
   //append the message's contents to the DOM
@@ -107,8 +91,6 @@ windowKit.onAgentTextEvent(function (text) {
 windowKit.onAgentRichContentEvent(function (content) {
   //console.log(content.elements[0].text);
   //render the structured content using JsonPollock
-  // console.log("Agent:");
-  //console.log(content);
   var line1 = createLine({
     by: "Bot",
     text: content.elements[0].text,
@@ -207,15 +189,10 @@ function createLine(line) {
 }
 
 windowKit.onAgentChatState(function (res) {
-  // $("#agentIsTyping").html("ooooo");
-  console.log(res);
-  // alert("Agent is typing");
+  // console.log(res);
   if (res === "COMPOSING") {
-    //  chatWindow.setFooterContent("Agent is typing...");
     $("#agentIsTyping").html("Agent is typing...");
-    // $("#agentIsTyping").innerHTML = "Agent is typing...";
   } else {
-    // chatWindow.setFooterContent("");
     $("#agentIsTyping").html("");
   }
 });

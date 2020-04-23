@@ -175,6 +175,8 @@ function windowKit(options) {
       var domain = _this.options.account.toString().startsWith("le")
         ? "hc1n.dev.lprnd.net"
         : "adminlogin.liveperson.net";
+
+        console.log(" Mmaun domain-----" + domain);
       return new Promise(function (response, reject) {
         return _this.jsonp({
           jsonp: "cb",
@@ -199,6 +201,7 @@ function windowKit(options) {
     signup: function () {
       return new Promise(function (response, reject) {
         return _this.lpUtils.getDomain("idp").then(function (idpDomain) {
+          console.log(" Mmaun idpDomain -----" + idpDomain);
           return _this.jsonp({
             url:
               "https://" +
@@ -303,6 +306,7 @@ function windowKit(options) {
     _this.lpUtils[method](_this.options.account).then(
       function (jwt) {
         _this.lpUtils.getDomain("asyncMessagingEnt").then(function (umsDomain) {
+          console.log(" Mmaun umsDomain -----" + umsDomain);
           //asyncMessagingEnt
           _this.socket
             .connect(

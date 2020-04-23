@@ -1,5 +1,6 @@
 var windowKit = new windowKit({
   account: 34681503,
+ // skillId: 1933536430,
   skillId: 1933526730,
   //skillId: 12341234 - optional skill ID
 });
@@ -19,7 +20,7 @@ windowKit.onConnect(function (res) {
         $("#hideSegment").show();
         $("#startHere").hide();
         console.log(res);
-        console.log(res.participantId);
+        //console.log(res.participantId);
         scrollToBottom();
       }, 1000);
     });
@@ -60,15 +61,20 @@ windowKit.onReady(function (res) {
 });
 
 windowKit.onMessageEvent(function (res) {
-  console.log(res);
+  //console.log(res);
+ // console.log(res.conversationId);
+  
 });
 
 //when the agent sends a text message
 windowKit.onAgentTextEvent(function (text) {
-  if (text === "jwt") {
-    // console.log(windowKit.initStack[0].jwt);
+  var jwt = text.substring(0, 3); 
+  if (jwt === 'jwt') {
+    console.log(text.substring(4, text.length));
+    sendVariable(text.substring(4, text.length),jwtCallback().jwt);
     console.log(jwtCallback().jwt);
-    windowKit.sendMessage(jwtCallback().jwt);
+   // console.log(windowKit.initStack[0].jwt);
+   // windowKit.sendMessage(jwtCallback().jwt);
     return;
   }
   //append the message's contents to the DOM
@@ -145,7 +151,9 @@ JsonPollock.registerAction("publishText", (data) => {
 });
 
 windowKit.onMessageSent(function (res) {
-  console.log(res);
+ // console.log(res);
+  //console.log(res.conversationId);
+  
 });
 
 function scrollToBottom() {
@@ -196,3 +204,76 @@ windowKit.onAgentChatState(function (res) {
     $("#agentIsTyping").html("");
   }
 });
+
+
+
+
+/////////////////////////////////////////////////////////////////
+
+// Post data to Web View API
+async function postData(url = '', auth, data = {}) {
+  const response = await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Authorization': auth,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  return await response.json();
+};
+
+// method to sha256 encode string
+async function sha256(message) {
+  const msgBuffer = new TextEncoder('utf-8').encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join('');
+}
+
+// Send Variable
+ async function sendVariable(botid,jwt) {
+// Get data from query string
+  const userId = windowKit.participantId;
+  const conversationId = Object.keys(windowKit.openConvs)[0];
+  const botId = botid;
+
+  // use correct domain for your region
+  const domain = 'https://va.bc-intg.liveperson.net/thirdparty-services-0.1/webview';
+  
+  // encode auth string
+  const authString = `${conversationId} || ${botId}`;
+  const auth = await sha256(authString);
+
+  const res = await postData(domain, auth, {
+    botId,
+    conversationId,
+    userId,
+    message: "request successful", // optional
+    contextVariables: [
+      {"name": "jwt", "value": jwt},
+      {"name": "color", "value": "ccccccccccccccc"},
+      {"name": "swallow", "value": "ssssssssssss"}
+    ],
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

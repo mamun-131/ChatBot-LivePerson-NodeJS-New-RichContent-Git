@@ -1,8 +1,9 @@
 var windowKit = new windowKit({
   account: 34681503,
-  // skillId: 1933536430,
+  skillId: 1933536430,
   //skillId: 1933526730,
-  skillId: 1912201930,
+  //skillId: 1912201930,
+  //skillId: 1960960330,
 
   //skillId: 12341234 - optional skill ID
 });
@@ -96,17 +97,25 @@ windowKit.onAgentTextEvent(function (text) {
 
 //when the agent sends a rich content message
 windowKit.onAgentRichContentEvent(function (content) {
+  // alert(content.elements[0].text);
   console.log(content);
   //render the structured content using JsonPollock
-  var line1 = createLine({
-    by: "Bot",
-    text: content.elements[0].text,
-    source: "agent",
-    type: "rttext",
-  });
+  //if there is no text will move forward as it is
+  if (content.elements[0].text != null) {
+    var line1 = createLine({
+      by: "Bot",
+      text: content.elements[0].text,
+      source: "agent",
+      type: "rttext",
+    });
+  }
 
   $("#chatLines").append(line1);
-  // content.elements.splice(0, 1);
+  //if there is text at first we need to delete and make custom line
+  if (content.elements[0].type === "text") {
+    content.elements.splice(0, 1);
+  }
+
   var structuredText = JsonPollock.render(content);
 
   var line2 = createLine({
@@ -152,8 +161,8 @@ JsonPollock.registerAction("publishText", (data) => {
 });
 
 windowKit.onMessageSent(function (res) {
-  // console.log(res);
-  //console.log(res.conversationId);
+  console.log(res);
+  console.log(res.conversationId);
 });
 
 function scrollToBottom() {

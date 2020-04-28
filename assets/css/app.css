@@ -45,6 +45,14 @@ pre {
   float: left;
 }
 
+.agentIsTypingresponse {
+  /* border: 1px solid #e2dfdf;*/
+  background: #ffffff;
+  padding: 1%;
+  width: 20%;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+}
 .response {
   border: 1px solid #e2dfdf;
   background: #ffffff;

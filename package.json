@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0",
     "jquery": "^3.4.1",
     "json-pollock": "^1.4.0"
   }

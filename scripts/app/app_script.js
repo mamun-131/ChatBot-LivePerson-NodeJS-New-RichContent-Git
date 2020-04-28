@@ -1,15 +1,16 @@
 var windowKit = new windowKit({
   account: 34681503,
   skillId: 1933536430,
-  //skillId: 1933526730,
+  // skillId: 1933526730,
   //skillId: 1912201930,
   //skillId: 1960960330,
+  //skillId: 1912189630,
 
   //skillId: 12341234 - optional skill ID
 });
 
 $("#hideSegment").hide();
-
+var animationSpeed = "normail";
 //connect to LE
 windowKit.connect();
 windowKit.onConnect(function (res) {
@@ -49,10 +50,10 @@ windowKit.onConnect(function (res) {
         source: "visitor",
         type: "text",
       });
-      $("#chatLines").append(line);
+      // $("#chatLines").append(line);
+      $(line).hide().appendTo("#chatLines").show(animationSpeed);
       windowKit.sendMessage($("#textline").val());
       $("#textline").val("");
-      scrollToBottom();
     });
   });
 
@@ -66,6 +67,7 @@ windowKit.onReady(function (res) {
 windowKit.onMessageEvent(function (res) {
   //console.log(res);
   // console.log(res.conversationId);
+  // scrollToBottom();
 });
 
 //when the agent sends a text message
@@ -77,6 +79,7 @@ windowKit.onAgentTextEvent(function (text) {
     //console.log(jwtCallback().jwt);
     // console.log(windowKit.initStack[0].jwt);
     // windowKit.sendMessage(jwtCallback().jwt);
+
     return;
   }
   //append the message's contents to the DOM
@@ -86,12 +89,9 @@ windowKit.onAgentTextEvent(function (text) {
     source: "agent",
     type: "text",
   });
-  $("#chatLines").append(line);
-  //grab all the agent texts so far
-  var botTexts = document.getElementsByClassName("response");
-  //find the last one
-  var latestText = botTexts[botTexts.length - 1];
-  //scroll the window to the last text. This is used to create a scroll effect in the conversation.
+  //$("#chatLines").append(line);
+  $(line).hide().appendTo("#chatLines").show(animationSpeed);
+
   scrollToBottom();
 });
 
@@ -110,7 +110,8 @@ windowKit.onAgentRichContentEvent(function (content) {
     });
   }
 
-  $("#chatLines").append(line1);
+  // $("#chatLines").append(line1);
+  $(line1).hide().appendTo("#chatLines").show(animationSpeed);
   //if there is text at first we need to delete and make custom line
   if (content.elements[0].type === "text") {
     content.elements.splice(0, 1);
@@ -126,7 +127,8 @@ windowKit.onAgentRichContentEvent(function (content) {
   });
 
   //append the results of the render to the DOM
-  $("#chatLines").append(line2);
+  //$("#chatLines").append(line2);
+  $(line2).hide().appendTo("#chatLines").show(animationSpeed);
   scrollToBottom();
   //console.log(line2);
   //when a user clicks on a structured content button
@@ -142,7 +144,8 @@ windowKit.onAgentRichContentEvent(function (content) {
       source: "visitor",
       type: "text",
     });
-    $("#chatLines").append(line_button);
+    // $("#chatLines").append(line_button);
+    $(line_button).hide().appendTo("#chatLines").show(animationSpeed);
     //same scroll effect as above
     // console.log(scText);
     scrollToBottom();
@@ -166,14 +169,25 @@ windowKit.onMessageSent(function (res) {
 });
 
 function scrollToBottom() {
-  $("#chatLines").scrollTop(
-    $("#chatLines")[0].scrollHeight - $("#chatLines")[0].clientHeight
+  $("#chatLines").animate(
+    {
+      scrollToBottom: "1px", // vertical position on the page
+    },
+    500, // the duration of the animation
+    function () {
+      setTimeout(function () {
+        $("#chatLines").scrollTop(
+          $("#chatLines")[0].scrollHeight - $("#chatLines")[0].clientHeight
+        );
+      }, 1000);
+    }
   );
 }
 
 //Create a chat line
 function createLine(line) {
   var div = document.createElement("P");
+  div.setAttribute("id", "newline");
 
   if (line.source === "visitor") {
     div.innerHTML =
@@ -209,8 +223,15 @@ windowKit.onAgentChatState(function (res) {
   // console.log(res);
   if (res === "COMPOSING") {
     $("#agentIsTyping").html("Agent is typing...");
+    $("#chatLines").append(
+      `<div id="agentIsTypingDot" class="agentIsTypingresponse">
+      <img src='/assets/image/boticon.PNG' style='width: 40px; height: 40px;'/>
+      <img src='/assets/image/dots.gif' style='width: 60%; height: 100%; float: right;'/></div>`
+    );
+    scrollToBottom();
   } else {
     $("#agentIsTyping").html("");
+    $("#agentIsTypingDot").remove();
   }
 });
 
